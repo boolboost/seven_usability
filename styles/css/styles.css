@@ -1,0 +1,7 @@
+table.tabledrag-processed > tbody > tr:hover {
+	background: #ffb;
+}
+
+table.field-ui-overview tr .label-input {
+	float: left;
+}
