@@ -139,7 +139,10 @@ function seven_usability_field_group_info_alter(&$groups) {
 
           $class_names = explode(' ', $class_names);
           $class_key = array_search('field-group-' . $group->format_type, $class_names);
-          unset($class_names[$class_key]);
+          
+          if ($class_key !== FALSE) {
+            unset($class_names[$class_key]);
+          }
           $class_names = join(' ', $class_names);
         }
       }
