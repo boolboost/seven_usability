@@ -33,10 +33,12 @@ function seven_usability_form_alter(&$form, &$form_state, $form_id) {
 
     case 'field_ui_display_overview_form':
       // machine name in field display
-      foreach ($form['fields'] as $type => &$field) {
-        if (isset($field['#row_type']) && $field['#row_type'] == 'field') {
-          $field['human_name']['#prefix'] = '<div class="label-input">';
-          $field['human_name']['#suffix'] = '<div class="description">' . $type . '</div></div>';
+      if (isset($form['fields'])) {
+        foreach ($form['fields'] as $type => &$field) {
+          if (isset($field['#row_type']) && $field['#row_type'] == 'field') {
+            $field['human_name']['#prefix'] = '<div class="label-input">';
+            $field['human_name']['#suffix'] = '<div class="description">' . $type . '</div></div>';
+          }
         }
       }
 
