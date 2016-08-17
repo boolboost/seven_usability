@@ -36,8 +36,13 @@ function seven_usability_form_alter(&$form, &$form_state, $form_id) {
       if (isset($form['fields'])) {
         foreach ($form['fields'] as $type => &$field) {
           if (isset($field['#row_type']) && $field['#row_type'] == 'field') {
+            $type_prefix = '';
+            if (!isset($field['format']['type']['#parents'])) {
+              $type_prefix = 'DS: ';
+            }
+            
             $field['human_name']['#prefix'] = '<div class="label-input">';
-            $field['human_name']['#suffix'] = '<div class="description">' . $type . '</div></div>';
+            $field['human_name']['#suffix'] = '<div class="description">' . $type_prefix . $type . '</div></div>';
           }
         }
       }
