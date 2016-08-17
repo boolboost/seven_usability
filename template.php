@@ -23,6 +23,16 @@ function seven_usability_form_alter(&$form, &$form_state, $form_id) {
       break;
 
     case 'field_ui_field_overview_form':
+      // fields grouping
+      $options = &$form['fields']['_add_existing_field']['field_name']['#options'];
+      foreach ($options as $key => &$option) {
+        if (is_string($option)) {
+          list($group, $label) = explode(': ', $option, 2);
+          $options[$group][$key] = $label;
+          unset($options[$key]);
+        }
+      }
+      
       // field group last type
       if (isset($form['fields']['_add_new_group']['format']['type']['#default_value'])) {
         $form['fields']['_add_new_group']['format']['type']['#default_value'] = variable_get('default_values:field_ui_field_overview_form:type', 'html-element');
