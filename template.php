@@ -150,17 +150,23 @@ function seven_usability_field_group_info_alter(&$groups) {
   /// remove base class
   foreach ($groups as $type => &$bundles) {
     foreach ($bundles as $bundle => &$views) {
-      foreach ($views as $view => &$group_items) {
-        foreach ($group_items as $group_name => &$group) {
-          $class_names = &$group->format_settings['instance_settings']['classes'];
+      if (is_array($views)) {
+        foreach ($views as $view => &$group_items) {
+          if (is_array($group_items)) {
+            foreach ($group_items as $group_name => &$group) {
+              if (is_object($group)) {
+                $class_names = &$group->format_settings['instance_settings']['classes'];
 
-          $class_names = explode(' ', $class_names);
-          $class_key = array_search('field-group-' . $group->format_type, $class_names);
+                $class_names = explode(' ', $class_names);
+                $class_key = array_search('field-group-' . $group->format_type, $class_names);
           
-          if ($class_key !== FALSE) {
-            unset($class_names[$class_key]);
+                if ($class_key !== FALSE) {
+                  unset($class_names[$class_key]);
+                }
+                $class_names = join(' ', $class_names);
+              }
+            }
           }
-          $class_names = join(' ', $class_names);
         }
       }
     }
