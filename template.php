@@ -24,12 +24,15 @@ function seven_usability_form_alter(&$form, &$form_state, $form_id) {
 
     case 'field_ui_field_overview_form':
       // fields grouping
-      $options = &$form['fields']['_add_existing_field']['field_name']['#options'];
-      foreach ($options as $key => &$option) {
-        if (is_string($option)) {
-          list($group, $label) = explode(': ', $option, 2);
-          $options[$group][$key] = $label;
-          unset($options[$key]);
+      if (isset($form['fields']['_add_existing_field']['field_name']['#options'])) {
+        $options = &$form['fields']['_add_existing_field']['field_name']['#options'];
+        
+        foreach ($options as $key => &$option) {
+          if (is_string($option)) {
+            list($group, $label) = explode(': ', $option, 2);
+            $options[$group][$key] = $label;
+            unset($options[$key]);
+          }
         }
       }
       
